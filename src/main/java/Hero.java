@@ -4,10 +4,11 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
-public class Hero {
+public class Hero extends Element{
     private Position position;
 
     public Hero(int x, int y) {
+        super(x,y);
     }
     Hero hero = new Hero(10, 10);
     public Position moveUp(){
