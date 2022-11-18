@@ -19,6 +19,7 @@ public class Arena {
         hero = new Hero(10, 10);
         this.walls = createWalls();
         this.coins = createCoins();
+        this.monsters = createMonsters();
     }
     private Position position;
 
@@ -56,6 +57,8 @@ public class Arena {
             wall.draw(screen);
         for(Coin coin : coins)
             coin.draw(screen);
+        for(Monster monster : monsters)
+            monster.draw(screen);
     }
 
     public void setPosition(Position position) {
@@ -114,6 +117,45 @@ public class Arena {
             graphics.enableModifiers(SGR.BOLD);
             graphics.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "0");
         }
+    }
+    private List<Monster> monsters;
+    private List<Monster> createMonsters() {
+        Random random = new Random();
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Monster bicho = new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1);
+            if(!bicho.getPosition().equals(hero.getPosition())){
+                boolean yh=false;
+                for(Monster monster : monsters){
+                    if (!bicho.getPosition().equals(monster.getPosition()))
+                        yh=true;
+                    else yh=false;
+                }
+                monsters.add(bicho);
+            }
+        }
+        return monsters;
+    }
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+    public void moveMonsters(){
+        for(Monster monster : monsters){
+            monster.setPosition(monster.move(this));
+        }
+    }
+    public boolean verifyMonsterCollisions(){
+        for(Monster monster : monsters){
+            if(monster.getPosition().equals(hero.getPosition())){
+                System.out.println("GAME OVER");
+                return true;
+            }
+        }
+        return false;
     }
 
 }

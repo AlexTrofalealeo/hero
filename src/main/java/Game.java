@@ -36,12 +36,23 @@ public class Game {
                 draw();
                 KeyStroke key = screen.readInput();
                 processKey(key);
+                if(arena.verifyMonsterCollisions()){
+                    screen.close();
+                    break;
+                }
+
                 if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
                     screen.close();
                 }
                 if (key.getKeyType() == KeyType.EOF){
                     break;
                 }
+                arena.moveMonsters();
+                if(arena.verifyMonsterCollisions()){
+                    screen.close();
+                    break;
+                }
+
             }
         } catch (IOException e){
                 e.printStackTrace();
