@@ -4,6 +4,9 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Arena {
     private int width;
     private int height;
@@ -11,6 +14,7 @@ public class Arena {
         this.height = height;
         this.width = width;
         hero = new Hero(10, 10);
+        this.walls = createWalls();
     }
     private Position position;
 
@@ -38,6 +42,8 @@ public class Arena {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#3366 99"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
         hero.draw(screen);
+        for (Wall wall : walls)
+            wall.draw(graphics);
     }
 
     public void setPosition(Position position) {
@@ -45,4 +51,17 @@ public class Arena {
     }
     private Screen screen;
     TextGraphics graphics = screen.newTextGraphics();
+    private List<Wall> walls;
+    private List<Wall> createWalls() {
+        List<Wall> walls = new ArrayList<>();
+        for (int c = 0; c < width; c++) {
+            walls.add(new Wall(c, 0));
+            walls.add(new Wall(c, height - 1));
+        }
+        for (int r = 1; r < height - 1; r++) {
+            walls.add(new Wall(0, r));
+            walls.add(new Wall(width - 1, r));
+        }
+        return walls;
+    }
 }
