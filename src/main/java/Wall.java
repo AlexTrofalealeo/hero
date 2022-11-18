@@ -10,6 +10,6 @@ public class Wall extends Element {
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#808080"));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "|");
+        graphics.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), ".");
     }
 }

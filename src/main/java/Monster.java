@@ -18,7 +18,7 @@ public class Monster extends Element {
     public Position move(Arena arena){
         Random random = new Random();
         while(true) {
-            Position mov = new Position(this.getPosition().getX() + random.nextInt(2) - 1, this.getPosition().getY() + random.nextInt(2) - 1);
+            Position mov = new Position(this.getPosition().getX() + random.nextInt(3) - 1, this.getPosition().getY() + random.nextInt(3) - 1);
             if(mov.getX() > 0 && mov.getX() < arena.getWidth()-1 && mov.getY() > 0 && mov.getY() < arena.getHeight()-1)
                 return mov;
         }
