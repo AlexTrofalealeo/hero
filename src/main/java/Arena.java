@@ -3,6 +3,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,13 @@ public class Arena {
             hero.setPosition(position);
     }
     private boolean canHeroMove(Position position) {
-        return (position.getX() >= 0 && position.getX() < width) && (position.getY() >= 0 && position.getY() < height);
+        if ((position.getX() >= 0 && position.getX() < width) && (position.getY() >= 0 && position.getY() < height)){
+            for (Wall wall : walls){
+                if (wall.getPosition().equals(position)){return false;}
+                else {return true;}
+            }
+        }
+        return false;
     }
     public void draw(TextGraphics screen){
         graphics.setBackgroundColor(TextColor.Factory.fromString("#3366 99"));

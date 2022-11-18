@@ -12,4 +12,11 @@ public class Wall {
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
     }
     private Position position;
+
+
+    public Position getPosition() {
+        return position;
+    }
+    public void setPosition(Object position) {
+    }
 }
